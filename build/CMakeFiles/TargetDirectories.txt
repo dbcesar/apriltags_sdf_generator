@@ -1,2 +1,0 @@
-/home/tiagotrocoli/Documents/myCode/apriltags_sdf_generator/build/CMakeFiles/april_sdf_generator.dir
-/home/tiagotrocoli/Documents/myCode/apriltags_sdf_generator/build/CMakeFiles/xml_genlib.dir
