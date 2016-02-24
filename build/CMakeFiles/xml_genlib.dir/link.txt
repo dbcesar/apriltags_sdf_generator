@@ -1,0 +1,2 @@
+/usr/bin/ar cr libxml_genlib.a  CMakeFiles/xml_genlib.dir/libraries/xml_gen.cpp.o
+/usr/bin/ranlib libxml_genlib.a
