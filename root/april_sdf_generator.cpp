@@ -139,7 +139,7 @@ int main(int argc, char** argv) {
     data_bool.push_back(temp_vector);
   }
 
-  sdf_generator::SdfGenerator::generateAprilTag(id, size_in_meters, data_bool,
+  sdf_generator::SdfGenerator::aprilTagGenerator(id, size_in_meters, data_bool,
                                                 folder_address, author, email);
 
   return 0;

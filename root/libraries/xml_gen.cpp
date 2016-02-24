@@ -102,13 +102,13 @@ void SdfGenerator::generate(std::string folder, std::string model_name,
 
 }
 
-void SdfGenerator::generateAprilTag(uint8_t id, float size_in_meters,
-                                    std::vector<std::vector<bool> > data_mat,
-                                    std::string folder_address,
-                                    std::string author, std::string email) {
+void SdfGenerator::aprilTagGenerator(uint8_t id, float size_in_meters,
+                                     std::vector<std::vector<bool> > data_mat,
+                                     std::string folder_address,
+                                     std::string author, std::string email) {
   std::ostringstream ss;
   ss << (int) id;
-  std::string model_name = "apriltags_" + ss.str();
+  std::string model_name = "apriltag_" + ss.str();
   std::string description =
       "Fiducial marker developed by the April Laboratories (https://april.eecs.umich.edu/wiki/index.php/AprilTags)";
 
@@ -125,11 +125,17 @@ void SdfGenerator::generateAprilTag(uint8_t id, float size_in_meters,
   generate(sdf_folder_address, model_name, box_size, data_mat);
 }
 
-void SdfGenerator::generateGeneric(std::string model_name, float box_size,
-                                   std::vector<std::vector<bool> > data_mat,
-                                   std::string folder_address,
-                                   std::string author, std::string email,
-                                   std::string description) {
+void SdfGenerator::genericGenerator(std::string model_name, float box_size,
+                                    std::vector<std::vector<bool> > data_mat,
+                                    std::string folder_address,
+                                    std::string author, std::string email,
+                                    std::string description) {
+
+  std::string sdf_folder_address = createFolder(folder_address, model_name);
+  generateModelConfig(sdf_folder_address, model_name, author, email,
+                      description);
+
+  generate(sdf_folder_address, model_name, box_size, data_mat);
 }
 
 }

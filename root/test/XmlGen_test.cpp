@@ -12,6 +12,7 @@
 
 #include <vector>
 #include <cmath>
+#include <fstream>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -155,10 +156,71 @@ BOOST_AUTO_TEST_CASE(generateAprilTag_test) {
       data_bool.push_back(temp_vector);
     }
 
-    sdf_generator::SdfGenerator::generateAprilTag(id, size_in_meters, data_bool,
-                                                  folder_address, author,
-                                                  email);
+    sdf_generator::SdfGenerator::aprilTagGenerator(id, size_in_meters,
+                                                   data_bool, folder_address,
+                                                   author, email);
 
+    std::string model_config = "model.config";
+    std::string model_sdf = "model.sdf";
+    std::string ground_truth_path = std::string(RESOURCE_PATH) + "apriltag_"
+        + s_id.str() + "/";
+    std::string result_path = "apriltag_" + s_id.str() + "/";
+    std::string line_gt, line_final;
+
+    // check mode.config files
+    std::ifstream ground_truth_config(
+        (ground_truth_path + model_config).c_str());
+    std::ifstream result_config((result_path + model_config).c_str());
+
+    std::cout << ground_truth_path << model_config << std::endl;
+    std::cout << result_path << model_config << std::endl;
+
+    while (std::getline(ground_truth_config, line_gt)) {
+      std::getline(result_config, line_final);
+      BOOST_CHECK_EQUAL(line_gt, line_final);
+    }
+    ground_truth_config.close();
+    result_config.close();
+
+    // check mode.sdf files
+    std::ifstream ground_truth_sdf((ground_truth_path + model_sdf).c_str());
+    std::ifstream result_sdf((result_path + model_sdf).c_str());
+
+    std::cout << ground_truth_path << model_sdf << std::endl;
+    std::cout << result_path << model_sdf << std::endl;
+
+    while (std::getline(ground_truth_sdf, line_gt)) {
+      std::getline(result_sdf, line_final);
+      BOOST_CHECK_EQUAL(line_gt, line_final);
+    }
   }
+}
+
+BOOST_AUTO_TEST_CASE(generateGeneric_test) {
+
+  unsigned int rows = 8, cols = 10;
+
+  std::vector<std::vector<bool> > chessboard_pattern;
+  for (unsigned int i = 0; i < rows; ++i) {
+    std::vector<bool> temp_vector;
+    bool color;
+    for (unsigned int j = 0; j < cols; ++j) {
+      (i + j) % 2 ? color = true : color = false;
+      temp_vector.push_back(color);
+    }
+    chessboard_pattern.push_back(temp_vector);
+  }
+
+  std::cout << "\nCHESSBOARD PATTERN" << std::endl;
+  for (unsigned int i = 0; i < rows; ++i) {
+    std::cout << "row " << i << " : " << chessboard_pattern[i][0];
+    for (unsigned int j = 1; j < cols; ++j) {
+      std::cout << "," << chessboard_pattern[i][j];
+    }
+    std::cout << "\n";
+  }
+
+  sdf_generator::SdfGenerator::genericGenerator("chessboard", 0.35,
+                                                chessboard_pattern);
 }
 
