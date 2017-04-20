@@ -123,7 +123,7 @@ namespace sdf_generator
                     {
                         fs <<
                             "      <visual name='block" << i*mat.size()+j << "'>\n" <<
-                            "        <pose>" << box_size*i << " " << box_size*j << " 0.001 0 0 0</pose>\n" <<
+                            "        <pose>" << box_size*i-(size_in_meters/2-box_size/2) << " " << box_size*j-(size_in_meters/2-box_size/2) << " 0.001 0 0 0</pose>\n" <<
                             "          <geometry>\n" <<
                             "            <box>\n" <<
                             "            <size>" << box_size << " " << box_size << " " << "0.003</size>\n" <<
@@ -140,7 +140,7 @@ namespace sdf_generator
                     {
                         fs <<
                             "      <visual name='block" << i*mat.size()+j << "'>\n" <<
-                            "        <pose>" << box_size*i << " " << box_size*j << " 0.001 0 0 0</pose>\n" <<
+                            "        <pose>" << box_size*i-(size_in_meters/2-box_size/2) << " " << box_size*j-(size_in_meters/2-box_size/2) << " 0.001 0 0 0</pose>\n" <<
                             "          <geometry>\n" <<
                             "            <box>\n" <<
                             "            <size>" << box_size << " " << box_size << " " << "0.003</size>\n" <<
@@ -159,7 +159,7 @@ namespace sdf_generator
 
             fs <<
                 "      <visual name='thin_layer'>\n" <<
-                "        <pose>" << (size_in_meters-box_size)/2 << " " << (size_in_meters-box_size)/2 << " 0 0 0 0</pose>\n" <<
+                "        <pose>" << 0 << " " << 0 << " 0 0 0 0</pose>\n" <<
                 "          <geometry>\n" <<
                 "            <box>\n" <<
                 "            <size>" << size_in_meters << " " << size_in_meters << " " << "0.001</size>\n" <<

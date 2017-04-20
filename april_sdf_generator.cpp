@@ -40,9 +40,8 @@ int main(int argc, char** argv)
     std::cout << "email: " << email << std::endl;
 
 
-
-
     cv::Mat temp = cv::imread(address, 0);
+    std::cout << "read the image sucessfully" << std::endl;
 
     //resize image by a factor
     cv::Mat img_bin;
@@ -134,14 +133,13 @@ int main(int argc, char** argv)
     //cv::Mat bin_matrix(8,8,CV_8UC1, cv::Scalar(0));
 
     //initialize matrix with white elements
-    std::vector<int> temp_vector(10, 255);
-    std::vector<std::vector<int> > data_mat(10, temp_vector);
     //for (int i = 0; i < temp_mat.size(); ++i)
     //{
         //temp_mat[i].resize(10);
     //}
 
 
+    cv::Mat test = cv::Mat::ones(10,10, CV_8U) * 255;
 
     //look for black block and overide in in bin_matrix
     for (int i = 1; i < roi.rows; i += block_h)
@@ -152,14 +150,26 @@ int main(int argc, char** argv)
             cv::Scalar tempValue = cv::mean(roi_temp);
             if( tempValue[0] < 256/2) 
             {
-                data_mat[i/block_h+1][j/block_w+1] = 0;
+                test.at<uchar>(i/block_h+1, j/block_w+1) = 0;
             }
 
         }
     }
 
+    std::vector<int> temp_vector(10, 255);
+    std::vector<std::vector<int> > data_mat(10, temp_vector);
 
+    cv::transpose(test, test);
+    cv::flip(test, test, 1);
         
+    for(int i=0; i < 10; ++i)
+    {
+        for(int j=0; j < 10; ++j)
+        {
+            data_mat[i][j] = (int)test.at<uchar>(i,j);
+        }
+    }
+
     sdf_generator::SdfGenerator gen(id, size_in_meters, data_mat, folder_address, author, email);
     gen.generate();
     
