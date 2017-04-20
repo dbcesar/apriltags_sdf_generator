@@ -13,7 +13,7 @@ int main(int argc, char** argv)
     if (argc < 3)
     {
         std::cout << "Usage:" << std::endl;
-        std::cout << "apriltags_id, size_in_meters, image_address, " <<
+        std::cout << "apriltag_id, size_in_meters, image_address, " <<
                 "(opt)folder_address, (opt)author, (opt)email" << std::endl;
         return 0;
     }

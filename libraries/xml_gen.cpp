@@ -69,7 +69,7 @@ namespace sdf_generator
            "<?xml version=\"1.0\"?>\n" <<
            "\n" <<
            "<model>\n" <<
-           "    <name>apriltags_" << (int)id << "</name>\n" <<
+           "    <name>apriltag_" << (int)id << "</name>\n" <<
            "    <version>1.0</version>\n" <<
            "    <sdf version=\"1.4\">model.sdf</sdf>\n" <<
            "    \n" <<
@@ -106,7 +106,7 @@ namespace sdf_generator
             //write_header
             fs << 
                "<sdf version=\"1.4\">\n" <<
-               "  <model name='apriltags_" << (int)id << "'>\n" <<
+               "  <model name='apriltag_" << (int)id << "'>\n" <<
                "  <static>true</static>\n" <<
                "  <pose>0 0 0 0 0 0</pose>\n" <<
                "     <link name='apriltag_body'>\n";
