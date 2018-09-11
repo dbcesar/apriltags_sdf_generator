@@ -11,3 +11,6 @@ add_library(xml_genlib ${SOURCES} ${HEADERS})
 add_executable( april_sdf_generator april_sdf_generator.cpp ${HEADERS})
 target_link_libraries( april_sdf_generator ${OpenCV_LIBS} xml_genlib )
 
+
+add_executable( chessboard_sdf_generator chessboard_sdf_generator.cpp ${HEADERS})
+target_link_libraries( chessboard_sdf_generator xml_genlib )
