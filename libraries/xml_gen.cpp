@@ -74,8 +74,8 @@ namespace sdf_generator
            "    <sdf version=\"1.4\">model.sdf</sdf>\n" <<
            "    \n" <<
            "    <author>\n" <<
-           "        <name>Diego Cesar</name>\n" <<
-           "        <email>diego.cesar@fieb.org.br</email>\n" <<
+           "        <name>" << author << "</name>\n" <<
+           "        <email>" << email << "</email>\n" <<
            "    </author>\n" <<
            "    \n" <<
            "    <description>\n" <<
