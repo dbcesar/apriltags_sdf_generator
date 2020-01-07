@@ -45,8 +45,6 @@ int main(int argc, char** argv)
 
     //resize image by a factor
     cv::Mat img_bin;
-    //float factor = 1;
-    //cv::resize(temp, img_bin, cv::Size(temp.cols*factor, temp.rows*factor));
     cv::threshold(temp, img_bin, 0, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
 
     //sum of rows
@@ -118,8 +116,6 @@ int main(int argc, char** argv)
 
     cv::Point corner1(first_col, first_row);
     cv::Point corner2(last_col, last_row);
-    //cv::circle(img_bin, corner1, 3, cv::Scalar(255,0,0), -1);
-    //cv::circle(img_bin, corner2, 3, cv::Scalar(255,0,0), -1);
 
     //region of interest
     cv::Mat roi(img_bin, cv::Rect(corner1, corner2));
@@ -128,29 +124,21 @@ int main(int argc, char** argv)
     int block_w = roi.cols/8;
     int block_h = roi.rows/8;
 
-    //TODO erase this
-    //initialize a 8x8 matrix with all elements black
-    //cv::Mat bin_matrix(8,8,CV_8UC1, cv::Scalar(0));
-
-    //initialize matrix with white elements
-    //for (int i = 0; i < temp_mat.size(); ++i)
-    //{
-        //temp_mat[i].resize(10);
-    //}
-
-
-    cv::Mat test = cv::Mat::ones(10,10, CV_8U) * 255;
-
     //look for black block and overide in in bin_matrix
-    for (int i = 1; i < roi.rows; i += block_h)
+    cv::Mat test = cv::Mat::ones(10,10, CV_8U) * 255;
+    for (int i = 0; i <= roi.rows; i += (block_h+1))
     {
-        for (int j = 1; j < roi.cols; j += block_w)
+        for (int j = 0; j <= roi.cols; j += (block_w+1))
         {
-            cv::Mat roi_temp(roi, cv::Rect(j,i, block_h-1, block_w-1));
+            cv::Mat roi_temp(roi, cv::Rect(j,i, block_h, block_w));
             cv::Scalar tempValue = cv::mean(roi_temp);
+
+            if (block_h == 0 || block_w == 0)
+                tempValue[0] = roi.at<uchar>(i,j);
+
             if( tempValue[0] < 256/2) 
             {
-                test.at<uchar>(i/block_h+1, j/block_w+1) = 0;
+                test.at<uchar>(i+1, j+1) = 0;
             }
 
         }
